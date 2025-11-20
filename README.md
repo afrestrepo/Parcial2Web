@@ -2,15 +2,7 @@
 
 **Cómo ejecutar el proyecto**
 
-El proyecto utiliza TypeORM y PostgreSQL. También requiere class-validator y class-transformer, esta última es dependencia necesaria para class-validator.
-
-Desde la raíz del proyecto:
-
-npm install
-
-npm install class-validator
-
-npm install class-transformer
+El proyecto utiliza TypeORM y PostgreSQL. 
 
 Configuración de la base de datos:
 
@@ -22,11 +14,15 @@ Puerto: 5432
 
 Usuario: postgres
 
-Contraseña: base
+Contraseña: postgres
 
 Nombre de la base: travel_plans
 
-Crear la base travel_plans desde pgAdmin y asignarle como owner postgres.
+Crear la base travel_plans desde pgAdmin4 y asignarle como owner postgres.
+
+Desde la raíz del proyecto:
+
+npm install
 
 Ejecutar:
 
@@ -94,9 +90,9 @@ Elimina un plan.
 
 **Provider externo**
 
-El proyecto incluye RestCountriesProvider, responsable de consultar la API pública RESTCountries. El proveedor:
+El proyecto incluye RestCountriesProvider, responsable de consultar la API pública RESTCountries. 
 
-Realiza una petición a https://restcountries.com/v3.1/alpha/{alpha3}?fields=name,cca3,region,subregion,capital,population,flags
+El proveedor realiza una petición a https://restcountries.com/v3.1/alpha/{alpha3}?fields=name,cca3,region,subregion,capital,population,flags
 
 Normaliza la respuesta a un objeto con los campos usados por CountryEntity (alpha3Code, name, region, subregion, capital, population, flag).
 

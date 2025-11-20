@@ -12,7 +12,7 @@ import { TravelPlanEntity  } from './travel-plans/travel-plan.entity/travel-plan
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'base',
+      password: 'postgres',
       database: 'travel_plans',
       synchronize: true,
       entities: [CountryEntity , TravelPlanEntity ],
