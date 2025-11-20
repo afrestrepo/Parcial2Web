@@ -1,13 +1,15 @@
 # Parcial2Web
 
-Cómo ejecutar el proyecto
+**Cómo ejecutar el proyecto**
 
 El proyecto utiliza TypeORM y PostgreSQL. También requiere class-validator y class-transformer, esta última es dependencia necesaria para class-validator.
 
 Desde la raíz del proyecto:
 
 npm install
+
 npm install class-validator
+
 npm install class-transformer
 
 Configuración de la base de datos:
@@ -27,9 +29,13 @@ Nombre de la base: travel_plans
 Crear la base travel_plans desde pgAdmin y asignarle como owner postgres.
 
 Ejecutar:
+
 npm run start:dev
 
 La API quedará disponible en http://localhost:3000.
+
+
+**Modulos**
 
 El proyecto está organizado en dos módulos principales:
 
@@ -37,49 +43,49 @@ Countries: proveedor y gestión de países. Consulta la API externa (RESTCountri
 
 TravelPlans: gestión de planes de viaje (CRUD). Al crear un plan valida datos mediante DTOs y se asegura de que el país asociado esté en caché (lo trae de RESTCountries si hace falta).
 
-Endpoints:
+Endpoints
 
 El proyecto fue probado usando Postman
 
 Countries
 
 GET /countries
+
 Lista todos los países que están en la caché (tabla country).
 
 Ejemplo:
 
 http://localhost:3000/countries
 
-
 GET /countries/:alpha3Code
+
 Consulta un país por su código alfa-3 (ej: COL).
 
 Ejemplo:
 
 http://localhost:3000/countries/COL
 
-
 TravelPlans
 
 POST /travel-plans
+
 Crea un nuevo plan de viaje. Valida entrada mediante DTO. Si el país asociado no está en caché, se trae de RESTCountries y se guarda antes de crear el plan.
 
-
 GET /travel-plans
+
 Lista todos los planes de viaje.
 
 Ejemplo:
 
 http://localhost:3000/travel-plans
 
-
 GET /travel-plans/:id
+
 Obtiene un plan por su identificador numérico.
 
 Ejemplo:
 
 http://localhost:3000/travel-plans/1
-
 
 PATCH /travel-plans/:id
 Actualiza campos permitidos de un plan (usa update-travel-plan.dto).
@@ -87,58 +93,58 @@ Actualiza campos permitidos de un plan (usa update-travel-plan.dto).
 DELETE /travel-plans/:id
 Elimina un plan.
 
-Provider externo:
+
+**Provider externo**
 
 El proyecto incluye RestCountriesProvider, responsable de consultar la API pública RESTCountries. El proveedor:
 
 Realiza una petición a https://restcountries.com/v3.1/alpha/{alpha3}?fields=name,cca3,region,subregion,capital,population,flags
-
 
 Normaliza la respuesta a un objeto con los campos usados por CountryEntity (alpha3Code, name, region, subregion, capital, population, flag).
 
 Devuelve el objeto al CountriesService, que persiste la entidad en la base de datos la primera vez que se solicita ese país.
 
 
-Modelo de datos
+**Modelo de datos**
 
 CountryEntity :
 
-alpha3Code (string, PK, 3 caracteres)
+alpha3Code 
 
-name (string)
+name 
 
-region (string, opcional)
+region 
 
-subregion (string, opcional)
+subregion 
 
-capital (string, opcional)
+capital 
 
-population (numeric, opcional)
+population 
 
-flag (string, URL, opcional)
+flag 
 
 TravelPlanEntity :
 
-id (numeric, PK)
+id 
 
-title (string)
+title 
 
-countryCode (string, 3 caracteres) — FK hacia country(alpha3Code)
+countryCode 
 
-startDate (date)
+startDate 
 
-endDate (date)
+endDate 
 
-notes (string, opcional)
+notes 
 
-Pruebas sugeridas en Postman:
+
+**Pruebas sugeridas en Postman**
 
 Consultar un país por primera vez
 
 Petición:
 
 GET http://localhost:3000/countries/COL
-
 
 Resultado esperado:
 
@@ -164,7 +170,6 @@ Consultar un país por segunda vez
 Petición:
 
 GET http://localhost:3000/countries/COL
-
 
 Resultado esperado:
 
@@ -192,6 +197,7 @@ Petición:
 POST http://localhost:3000/travel-plans
 
 Content-Type: application/json
+
 {
   "title": "Vacaciones",
   "countryCode": "COL",
@@ -199,7 +205,6 @@ Content-Type: application/json
   "endDate": "2025-12-10",
   "notes": "Prueba"
 }
-
 
 Resultado esperado:
 
