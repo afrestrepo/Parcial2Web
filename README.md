@@ -45,8 +45,6 @@ TravelPlans: gestión de planes de viaje (CRUD). Al crear un plan valida datos m
 
 Endpoints
 
-El proyecto fue probado usando Postman
-
 Countries
 
 GET /countries
