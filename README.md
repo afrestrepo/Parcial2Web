@@ -1,5 +1,7 @@
 # Parcial2Web
 
+**PreParcial------------------------------------**
+
 **Cómo ejecutar el proyecto**
 
 El proyecto utiliza TypeORM y PostgreSQL. 
@@ -225,3 +227,13 @@ Respuesta con el objeto creado (incluye el país embebido por la relación).
     "endDate": "2025-01-20",
     "notes": "Prueba"
 }
+
+**PARCIAL------------------------------------**
+
+Se incorporó el endpoint DELETE /countries/:alpha3Code para permitir la eliminación de países almacenados. Solo puede eliminarse un país si no tiene planes de viaje asociados y si existe en la base de datos. Además, la operación se protegió mediante un guard personalizado que valida un token enviado mediante el header x-api-key.
+Antes de ejecutar la operación, este endpoint requiere el envío del header x-api-key con un token válido, en mi caso escogi el token 'admin123'. Si falta el header o es incorrecto, se retorna un 401 Unauthorized. Una vez superada la verificación, el servicio valida que el país exista y que no tenga planes de viaje asociados; de lo contrario, se devuelven errores 404 Not Found o 400 Bad Request, respectivamente. Para validarlo, bastan tres pruebas en Postman: sin token, con token inválido y con token correcto.
+
+Adicionalmente, la aplicación ahora incluye un middleware de logging que registra cada petición realizada a las rutas relacionadas con países y planes de viaje. Este middleware captura el método HTTP, la ruta solicitada, el código de estado generado por la respuesta y el tiempo total de procesamiento.
+Para validarlo, basta con realizar cualquier operación (GET, POST, DELETE) en estas rutas y observar en la consola del servidor que se genera una línea con el formato esperado ej:
+[HTTP] DELETE /countries/USA - 404 - 63ms
+[HTTP] GET /travel-plans/ - 200 - 77ms

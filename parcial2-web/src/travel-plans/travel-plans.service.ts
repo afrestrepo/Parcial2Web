@@ -39,9 +39,13 @@ export class TravelPlansService {
     return this.repo.find();
   }
 
-  findOne(id: number) {
-    return this.repo.findOne({ where: { id } });
-  }
+  async findOne(id: number) {
+  const plan = await this.repo.findOne({ where: { id } });
+  if (!plan) throw new NotFoundException('TravelPlan not found');
+
+  return plan;
+}
+
 
   async update(id: number, dto: UpdateTravelPlanDto) {
     const plan = await this.findOne(id);
